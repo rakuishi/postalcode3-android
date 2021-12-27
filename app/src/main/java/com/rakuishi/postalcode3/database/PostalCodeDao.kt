@@ -8,8 +8,8 @@ import androidx.room.Query
 interface PostalCodeDao {
 
     @Query("SELECT * FROM postal_codes WHERE prefecture LIKE :prefecture")
-    fun findByPrefecture(prefecture: String): List<PostalCode>
+    suspend fun findByPrefecture(prefecture: String): List<PostalCode>
 
     @Insert
-    fun insert(postalCode: PostalCode)
+    suspend fun insert(postalCode: PostalCode)
 }
