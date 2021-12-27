@@ -18,4 +18,8 @@ data class PostalCode(
 
     constructor(id: Int, code: String, prefecture: String, city: String, street: String)
             : this(id, code, prefecture, city, street, "", "", "")
+
+    override fun toString(): String {
+        return "$id $code $prefecture $city $street"
+    }
 }
