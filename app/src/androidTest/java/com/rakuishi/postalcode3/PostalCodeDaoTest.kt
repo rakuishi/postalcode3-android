@@ -18,7 +18,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.io.IOException
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -37,16 +36,14 @@ class PostalCodeDaoTest {
     }
 
     @After
-    @Throws(IOException::class)
     fun tearDown() {
         Dispatchers.resetMain()
         db.close()
     }
 
     @Test
-    @Throws(Exception::class)
-    fun insertPostalCode() = runTest {
-        val postalCode = PostalCode("0640941", "北海道", "札幌市中央区", "旭ケ丘")
+    fun findByPrefecture() = runTest {
+        val postalCode = PostalCode(1, "0640941", "北海道", "札幌市中央区", "旭ケ丘")
         postalCodeDao.insert(postalCode)
 
         val postalCodeList1 = postalCodeDao.findByPrefecture("北海道")
@@ -54,5 +51,21 @@ class PostalCodeDaoTest {
 
         val postalCodeList2 = postalCodeDao.findByPrefecture("東京都")
         assertEquals(postalCodeList2.size, 0)
+    }
+
+    @Test
+    fun search() = runTest {
+        postalCodeDao.insert(PostalCode(1, "0640941", "北海道", "札幌市中央区", "旭ケ丘"))
+        postalCodeDao.insert(PostalCode(2, "0600041", "北海道", "札幌市中央区", "大通東"))
+        postalCodeDao.insert(PostalCode(3, "0600042", "北海道", "札幌市中央区", "大通西（１〜１９丁目）"))
+
+        val postalCodeList1 = postalCodeDao.search("*北海道*")
+        assertEquals(postalCodeList1.size, 3)
+
+        val postalCodeList2 = postalCodeDao.search("*札幌市*")
+        assertEquals(postalCodeList2.size, 3)
+
+        val postalCodeList3 = postalCodeDao.search("*大通*")
+        assertEquals(postalCodeList3.size, 2)
     }
 }

@@ -2,11 +2,13 @@ package com.rakuishi.postalcode3.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Fts4
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "postal_codes")
-data class PostalCode(
-    @PrimaryKey var id: Int,
+@Entity(tableName = "postal_codes_fts")
+@Fts4(contentEntity = PostalCode::class)
+data class PostalCodeFTS(
+    @PrimaryKey @ColumnInfo(name = "rowid") val id: Int,
     @ColumnInfo(name = "code") val code: String,
     @ColumnInfo(name = "prefecture") val prefecture: String,
     @ColumnInfo(name = "city") val city: String,
@@ -14,8 +16,4 @@ data class PostalCode(
     @ColumnInfo(name = "prefecture_pron") val prefecturePron: String,
     @ColumnInfo(name = "city_pron") val cityPron: String,
     @ColumnInfo(name = "street_pron") val streetPron: String,
-) {
-
-    constructor(id: Int, code: String, prefecture: String, city: String, street: String)
-            : this(id, code, prefecture, city, street, "", "", "")
-}
+)
