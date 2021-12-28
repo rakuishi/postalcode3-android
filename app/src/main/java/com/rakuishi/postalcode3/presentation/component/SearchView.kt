@@ -1,7 +1,5 @@
 package com.rakuishi.postalcode3.presentation.component
 
-import android.content.res.Configuration
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -28,31 +26,29 @@ fun SearchView(
 ) {
     val focusManager = LocalFocusManager.current
 
-    Row(modifier = Modifier.fillMaxWidth()) {
-        TextField(
-            modifier = Modifier.fillMaxWidth(),
-            value = query,
-            label = {
-                Text(text = "Search")
-            },
-            textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
-            singleLine = true,
-            leadingIcon = {
-                Icon(Icons.Filled.Search, contentDescription = "")
-            },
-            onValueChange = {
-                onQueryChanged.invoke(it)
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Text,
-                imeAction = ImeAction.Done
-            ),
-            keyboardActions = KeyboardActions(
-                onDone = {
-                    onKeyboardDone.invoke()
-                    focusManager.clearFocus()
-                }
-            )
+    TextField(
+        modifier = Modifier.fillMaxWidth(),
+        value = query,
+        label = {
+            Text(text = "Search")
+        },
+        textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
+        singleLine = true,
+        leadingIcon = {
+            Icon(Icons.Filled.Search, contentDescription = "")
+        },
+        onValueChange = {
+            onQueryChanged.invoke(it)
+        },
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                onKeyboardDone.invoke()
+                focusManager.clearFocus()
+            }
         )
-    }
+    )
 }

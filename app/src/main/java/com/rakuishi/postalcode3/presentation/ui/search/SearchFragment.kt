@@ -4,12 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.rakuishi.postalcode3.database.PostalCode
@@ -41,11 +45,15 @@ class SearchFragment : Fragment() {
                 AppTheme {
                     Surface {
                         Column {
-                            SearchView(
-                                viewModel.query.value,
-                                onQueryChanged = { viewModel.onQueryChanged(it) },
-                                onKeyboardDone = { viewModel.search() }
-                            )
+                            Box(
+                                modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp)
+                            ) {
+                                SearchView(
+                                    viewModel.query.value,
+                                    onQueryChanged = { viewModel.onQueryChanged(it) },
+                                    onKeyboardDone = { viewModel.search() }
+                                )
+                            }
                             PostalCodeList(viewModel.postalCodeList.value)
                         }
                     }
