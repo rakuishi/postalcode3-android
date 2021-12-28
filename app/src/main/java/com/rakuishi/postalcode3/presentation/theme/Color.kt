@@ -1,4 +1,4 @@
-package com.rakuishi.postalcode3.ui.theme
+package com.rakuishi.postalcode3.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 

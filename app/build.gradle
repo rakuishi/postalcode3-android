@@ -49,6 +49,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.0' // by viewModels
 
     // Test
     testImplementation 'junit:junit:4.+'

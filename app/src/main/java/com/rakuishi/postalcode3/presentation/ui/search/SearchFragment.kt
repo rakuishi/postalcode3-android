@@ -1,4 +1,4 @@
-package com.rakuishi.postalcode3.ui.main
+package com.rakuishi.postalcode3.presentation.ui.search
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -12,16 +12,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
-import com.rakuishi.postalcode3.ui.theme.AppTheme
+import androidx.fragment.app.viewModels
+import com.rakuishi.postalcode3.presentation.App
+import com.rakuishi.postalcode3.presentation.theme.AppTheme
 
-class MainFragment : Fragment() {
+class SearchFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = SearchFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel: SearchViewModel by viewModels {
+        SearchViewModelFactory(
+            (requireContext().applicationContext as App).postalCodeRepository
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,19 +37,13 @@ class MainFragment : Fragment() {
                 AppTheme {
                     Surface {
                         Text(
-                            text = "MainFragment",
+                            text = "SearchFragment",
                             style = MaterialTheme.typography.body1
                         )
                     }
                 }
             }
         }
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
     @Preview(
@@ -57,11 +56,11 @@ class MainFragment : Fragment() {
         name = "Dark Mode"
     )
     @Composable
-    fun MainFragmentPreview() {
+    fun SearchFragmentPreview() {
         AppTheme {
             Surface {
                 Text(
-                    text = "MainFragment",
+                    text = "SearchFragment",
                     style = MaterialTheme.typography.body1
                 )
             }
