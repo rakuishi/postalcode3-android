@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.rakuishi.postalcode3.database.PostalCode
 import com.rakuishi.postalcode3.presentation.App
 import com.rakuishi.postalcode3.presentation.component.PostalCodeListItem
 import com.rakuishi.postalcode3.presentation.component.SearchView
+import com.rakuishi.postalcode3.presentation.theme.AppTheme
 import timber.log.Timber
 
 
@@ -36,27 +38,31 @@ class SearchFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                Column {
-                    SearchView(
-                        viewModel.query.value,
-                        onQueryChanged = { viewModel.onQueryChanged(it) },
-                        onKeyboardDone = { viewModel.search() }
-                    )
-                    PostalCodeList(viewModel.postalCodeList.value)
+                AppTheme {
+                    Surface {
+                        Column {
+                            SearchView(
+                                viewModel.query.value,
+                                onQueryChanged = { viewModel.onQueryChanged(it) },
+                                onKeyboardDone = { viewModel.search() }
+                            )
+                            PostalCodeList(viewModel.postalCodeList.value)
+                        }
+                    }
                 }
             }
         }
     }
+}
 
-    @Composable
-    fun PostalCodeList(items: List<PostalCode>) {
-        LazyColumn {
-            itemsIndexed(items) { _, postalCode ->
-                PostalCodeListItem(
-                    postalCode = postalCode,
-                    onClicked = { Timber.d("$postalCode") }
-                )
-            }
+@Composable
+private fun PostalCodeList(items: List<PostalCode>) {
+    LazyColumn {
+        itemsIndexed(items) { _, postalCode ->
+            PostalCodeListItem(
+                postalCode = postalCode,
+                onClicked = { Timber.d("$postalCode") }
+            )
         }
     }
 }
