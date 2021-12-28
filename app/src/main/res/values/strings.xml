@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">PostalCode</string>
+    <string name="app_name">郵便番号</string>
+    <string name="empty_search">郵便番号または地名から検索</string>
 </resources>
