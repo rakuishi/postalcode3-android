@@ -25,4 +25,13 @@ data class PostalCode(
 
     val name: String
         get() = "$prefecture $city $street"
+
+    fun contains(query: String): Boolean {
+        return prefecture.contains(query)
+                || prefecturePron.contains(query)
+                || city.contains(query)
+                || cityPron.contains(query)
+                || street.contains(query)
+                || streetPron.contains(query)
+    }
 }

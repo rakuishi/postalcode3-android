@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.rakuishi.postalcode3.BuildConfig
 import com.rakuishi.postalcode3.database.PostalCode
 import com.rakuishi.postalcode3.repository.PostalCodeRepository
 import kotlinx.coroutines.launch
@@ -14,14 +13,6 @@ class SearchViewModel(private val repository: PostalCodeRepository) : ViewModel(
 
     val postalCodeList: MutableState<List<PostalCode>> = mutableStateOf(ArrayList())
     val query: MutableState<String> = mutableStateOf("")
-
-    init {
-        // TODO: Remove this code later
-        if (BuildConfig.DEBUG) {
-            query.value = "北海道"
-            search()
-        }
-    }
 
     fun search() {
         viewModelScope.launch {

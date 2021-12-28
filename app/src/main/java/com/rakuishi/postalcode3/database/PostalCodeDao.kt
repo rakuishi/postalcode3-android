@@ -9,10 +9,14 @@ interface PostalCodeDao {
 
     @Query(
         """
-        SELECT * FROM postal_codes  
-        JOIN postal_codes_fts ON postal_codes.id = postal_codes_fts.rowid
-        WHERE postal_codes_fts MATCH :query
-    """
+        SELECT * FROM postal_codes WHERE code LIKE '%' || :query || '%'
+            OR prefecture LIKE '%' || :query || '%' 
+            OR city LIKE '%' || :query || '%' 
+            OR street LIKE '%' || :query || '%' 
+            OR prefecture_pron LIKE '%' || :query || '%' 
+            OR city_pron LIKE '%' || :query || '%' 
+            OR street_pron LIKE '%' || :query || '%'
+        """
     )
     suspend fun search(query: String): List<PostalCode>
 

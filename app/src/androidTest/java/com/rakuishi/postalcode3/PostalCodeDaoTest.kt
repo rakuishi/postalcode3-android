@@ -59,13 +59,13 @@ class PostalCodeDaoTest {
         postalCodeDao.insert(PostalCode(2, "0600041", "北海道", "札幌市中央区", "大通東"))
         postalCodeDao.insert(PostalCode(3, "0600042", "北海道", "札幌市中央区", "大通西（１〜１９丁目）"))
 
-        val postalCodeList1 = postalCodeDao.search("*北海道*")
+        val postalCodeList1 = postalCodeDao.search("北海道")
         assertEquals(postalCodeList1.size, 3)
 
-        val postalCodeList2 = postalCodeDao.search("*札幌市*")
+        val postalCodeList2 = postalCodeDao.search("札幌市")
         assertEquals(postalCodeList2.size, 3)
 
-        val postalCodeList3 = postalCodeDao.search("*大通*")
+        val postalCodeList3 = postalCodeDao.search("大通")
         assertEquals(postalCodeList3.size, 2)
     }
 }

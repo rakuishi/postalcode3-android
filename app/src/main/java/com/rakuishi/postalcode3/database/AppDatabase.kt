@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [PostalCode::class, PostalCodeFTS::class],
+    entities = [PostalCode::class],
     version = 1,
     exportSchema = false,
 )
