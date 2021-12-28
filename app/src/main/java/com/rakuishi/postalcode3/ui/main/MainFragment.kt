@@ -1,12 +1,19 @@
 package com.rakuishi.postalcode3.ui.main
 
-import androidx.lifecycle.ViewModelProvider
+import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.rakuishi.postalcode3.R
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.rakuishi.postalcode3.ui.theme.AppTheme
 
 class MainFragment : Fragment() {
 
@@ -20,7 +27,18 @@ class MainFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return ComposeView(requireContext()).apply {
+            setContent {
+                AppTheme {
+                    Surface {
+                        Text(
+                            text = "MainFragment",
+                            style = MaterialTheme.typography.body1
+                        )
+                    }
+                }
+            }
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -29,4 +47,24 @@ class MainFragment : Fragment() {
         // TODO: Use the ViewModel
     }
 
+    @Preview(
+        name = "Light Mode",
+        showBackground = true
+    )
+    @Preview(
+        uiMode = Configuration.UI_MODE_NIGHT_YES,
+        showBackground = true,
+        name = "Dark Mode"
+    )
+    @Composable
+    fun MainFragmentPreview() {
+        AppTheme {
+            Surface {
+                Text(
+                    text = "MainFragment",
+                    style = MaterialTheme.typography.body1
+                )
+            }
+        }
+    }
 }
