@@ -22,4 +22,7 @@ data class PostalCode(
     override fun toString(): String {
         return "$id $code $prefecture $city $street"
     }
+
+    val name: String
+        get() = "$prefecture $city $street"
 }

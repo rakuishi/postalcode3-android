@@ -1,20 +1,22 @@
 package com.rakuishi.postalcode3.presentation.ui.search
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.rakuishi.postalcode3.database.PostalCode
 import com.rakuishi.postalcode3.presentation.App
-import com.rakuishi.postalcode3.presentation.theme.AppTheme
+import com.rakuishi.postalcode3.presentation.component.PostalCodeListItem
+import com.rakuishi.postalcode3.presentation.component.SearchView
+import timber.log.Timber
+
 
 class SearchFragment : Fragment() {
 
@@ -34,34 +36,25 @@ class SearchFragment : Fragment() {
     ): View {
         return ComposeView(requireContext()).apply {
             setContent {
-                AppTheme {
-                    Surface {
-                        Text(
-                            text = "SearchFragment",
-                            style = MaterialTheme.typography.body1
-                        )
-                    }
+                Column {
+                    SearchView(
+                        viewModel.query.value,
+                        onQueryChanged = { viewModel.onQueryChanged(it) },
+                        onKeyboardDone = { viewModel.search() }
+                    )
+                    PostalCodeList(viewModel.postalCodeList.value)
                 }
             }
         }
     }
 
-    @Preview(
-        name = "Light Mode",
-        showBackground = true
-    )
-    @Preview(
-        uiMode = Configuration.UI_MODE_NIGHT_YES,
-        showBackground = true,
-        name = "Dark Mode"
-    )
     @Composable
-    fun SearchFragmentPreview() {
-        AppTheme {
-            Surface {
-                Text(
-                    text = "SearchFragment",
-                    style = MaterialTheme.typography.body1
+    fun PostalCodeList(items: List<PostalCode>) {
+        LazyColumn {
+            itemsIndexed(items) { _, postalCode ->
+                PostalCodeListItem(
+                    postalCode = postalCode,
+                    onClicked = { Timber.d("$postalCode") }
                 )
             }
         }

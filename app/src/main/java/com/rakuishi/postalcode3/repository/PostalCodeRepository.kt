@@ -8,6 +8,7 @@ class PostalCodeRepository(
 ) {
 
     suspend fun search(query: String): List<PostalCode> {
-        return dao.search(query)
+        // FIXME: Replace findByPrefecture -> search. FTS doesn't work now!
+        return dao.findByPrefecture(query)
     }
 }
