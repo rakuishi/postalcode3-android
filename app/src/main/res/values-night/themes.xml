@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- FIXME: define colors for less than targetSdk 31 -->
@@ -8,7 +8,7 @@
         <!-- <item name="colorOnSecondary">@color/black</item> -->
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryContainer</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryContainer</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>
