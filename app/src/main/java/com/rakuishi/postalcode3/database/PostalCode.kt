@@ -26,6 +26,9 @@ data class PostalCode(
     val name: String
         get() = "$prefecture $city $street"
 
+    val hyphenedCode: String
+        get() = if (code.length == 7) "${code.substring(0, 3)}-${code.substring(3)}" else ""
+
     fun contains(query: String): Boolean {
         return prefecture.contains(query)
                 || prefecturePron.contains(query)

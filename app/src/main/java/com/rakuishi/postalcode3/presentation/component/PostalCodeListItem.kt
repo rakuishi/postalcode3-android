@@ -1,6 +1,7 @@
 package com.rakuishi.postalcode3.presentation.component
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
@@ -22,16 +23,23 @@ fun PostalCodeListItem(
         modifier = Modifier
             .clickable { onClicked.invoke() }
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
     ) {
         Text(
-            text = postalCode.code,
+            text = postalCode.hyphenedCode,
             style = MaterialTheme.typography.bodyMedium
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = postalCode.name,
             style = MaterialTheme.typography.titleMedium
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+                .background(color = MaterialTheme.colorScheme.outline.copy(alpha = 0.4f))
         )
     }
 }
