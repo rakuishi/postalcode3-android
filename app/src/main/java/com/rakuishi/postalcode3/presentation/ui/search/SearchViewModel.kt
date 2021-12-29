@@ -23,6 +23,7 @@ class SearchViewModel(private val repository: PostalCodeRepository) : ViewModel(
 
     fun onQueryChanged(query: String) {
         this.query.value = query
+        if (query.isEmpty()) postalCodeList.value = arrayListOf()
     }
 }
 
