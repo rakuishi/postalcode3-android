@@ -3,9 +3,9 @@ package com.rakuishi.postalcode3.presentation.ui.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.material.*
+import androidx.compose.material.Scaffold
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -29,7 +29,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AppTheme {
-                MainScreen()
+                Surface {
+                    MainScreen()
+                }
             }
         }
     }
@@ -61,12 +63,9 @@ private fun BottomNavigationBar(navController: NavController) {
     val navBackStackEntry = navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry.value?.destination?.route
 
-    BottomNavigation(
-        backgroundColor = MaterialTheme.colors.primary,
-        contentColor = Color.White
-    ) {
+    NavigationBar {
         items.forEach { item ->
-            BottomNavigationItem(
+            NavigationBarItem(
                 icon = {
                     Icon(
                         painterResource(id = item.icon),
@@ -76,8 +75,6 @@ private fun BottomNavigationBar(navController: NavController) {
                 label = {
                     Text(text = stringResource(id = item.name))
                 },
-                selectedContentColor = Color.White,
-                unselectedContentColor = Color.White.copy(alpha = 0.4f),
                 selected = currentRoute == item.route,
                 onClick = {
                     navController.navigate(item.route) {
