@@ -27,24 +27,6 @@ import androidx.compose.ui.unit.dp
 import com.rakuishi.postalcode3.R
 import com.rakuishi.postalcode3.presentation.theme.AppTheme
 
-@Preview(
-    name = "Light Mode",
-    showBackground = true
-)
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    showBackground = true,
-    name = "Dark Mode"
-)
-@Composable
-fun SearchBarPreview() {
-    AppTheme {
-        Surface {
-            SearchBar()
-        }
-    }
-}
-
 @Composable
 fun SearchBar(
     query: String = "",
@@ -102,5 +84,23 @@ fun SearchBar(
                 }
             )
         )
+    }
+}
+
+@Preview(
+    name = "Light Mode",
+    showBackground = true
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
+@Composable
+fun SearchBarPreview() {
+    AppTheme {
+        Surface {
+            SearchBar()
+        }
     }
 }

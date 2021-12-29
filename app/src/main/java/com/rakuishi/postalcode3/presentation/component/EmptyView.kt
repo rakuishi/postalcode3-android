@@ -13,6 +13,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.rakuishi.postalcode3.presentation.theme.AppTheme
 
+@Composable
+fun EmptyView(text: String = "") {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.titleMedium
+        )
+    }
+}
+
 @Preview(
     name = "Light Mode",
     showBackground = true
@@ -28,19 +42,5 @@ fun EmptyViewPreview() {
         Surface {
             EmptyView("EmptyView")
         }
-    }
-}
-
-@Composable
-fun EmptyView(text: String = "") {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.titleMedium
-        )
     }
 }

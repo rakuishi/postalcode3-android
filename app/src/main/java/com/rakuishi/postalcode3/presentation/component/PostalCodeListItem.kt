@@ -13,24 +13,6 @@ import androidx.compose.ui.unit.dp
 import com.rakuishi.postalcode3.database.PostalCode
 import com.rakuishi.postalcode3.presentation.theme.AppTheme
 
-@Preview(
-    name = "Light Mode",
-    showBackground = true
-)
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    showBackground = true,
-    name = "Dark Mode"
-)
-@Composable
-fun PostalCodeListItemPreview() {
-    AppTheme {
-        Surface {
-            PostalCodeListItem(PostalCode(1, "0640941", "北海道", "札幌市中央区", "旭ケ丘"))
-        }
-    }
-}
-
 @Composable
 fun PostalCodeListItem(
     postalCode: PostalCode,
@@ -51,5 +33,23 @@ fun PostalCodeListItem(
             text = postalCode.name,
             style = MaterialTheme.typography.titleMedium
         )
+    }
+}
+
+@Preview(
+    name = "Light Mode",
+    showBackground = true
+)
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
+@Composable
+fun PostalCodeListItemPreview() {
+    AppTheme {
+        Surface {
+            PostalCodeListItem(PostalCode(1, "0640941", "北海道", "札幌市中央区", "旭ケ丘"))
+        }
     }
 }
