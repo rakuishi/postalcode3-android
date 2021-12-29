@@ -7,6 +7,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.rakuishi.postalcode3.R
 import com.rakuishi.postalcode3.database.PostalCode
@@ -14,7 +15,7 @@ import com.rakuishi.postalcode3.presentation.component.EmptyView
 import com.rakuishi.postalcode3.presentation.component.PostalCodeListItem
 import com.rakuishi.postalcode3.presentation.component.SearchBar
 import com.rakuishi.postalcode3.presentation.theme.AppTheme
-import timber.log.Timber
+import com.rakuishi.postalcode3.presentation.ui.detail.DetailActivity
 
 @Composable
 fun SearchScreen(viewModel: SearchViewModel) {
@@ -41,11 +42,13 @@ fun SearchScreen(viewModel: SearchViewModel) {
 
 @Composable
 private fun PostalCodeList(items: List<PostalCode>) {
+    val context = LocalContext.current
+
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         itemsIndexed(items) { _, postalCode ->
             PostalCodeListItem(
                 postalCode = postalCode,
-                onClicked = { Timber.d("$postalCode") }
+                onClicked = { DetailActivity.start(context, postalCode) }
             )
         }
     }

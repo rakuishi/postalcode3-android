@@ -3,6 +3,7 @@ package com.rakuishi.postalcode3.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "postal_codes")
 data class PostalCode(
@@ -14,7 +15,7 @@ data class PostalCode(
     @ColumnInfo(name = "prefecture_pron") val prefecturePron: String,
     @ColumnInfo(name = "city_pron") val cityPron: String,
     @ColumnInfo(name = "street_pron") val streetPron: String,
-) {
+) : Serializable {
 
     constructor(id: Int, code: String, prefecture: String, city: String, street: String)
             : this(id, code, prefecture, city, street, "", "", "")
