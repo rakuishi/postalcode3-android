@@ -3,11 +3,15 @@ package com.rakuishi.postalcode3.presentation.ui.main
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.material.Scaffold
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -16,6 +20,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.navigationBarsPadding
 import com.rakuishi.postalcode3.presentation.App
 import com.rakuishi.postalcode3.presentation.navigation.NavigationItem
 import com.rakuishi.postalcode3.presentation.theme.AppTheme
@@ -27,10 +33,13 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            AppTheme {
-                Surface {
-                    MainScreen()
+            ProvideWindowInsets {
+                AppTheme {
+                    Surface {
+                        MainScreen()
+                    }
                 }
             }
         }
@@ -63,29 +72,37 @@ private fun BottomNavigationBar(navController: NavController) {
     val navBackStackEntry = navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry.value?.destination?.route
 
-    NavigationBar {
-        items.forEach { item ->
-            NavigationBarItem(
-                icon = {
-                    Icon(
-                        painterResource(id = item.icon),
-                        contentDescription = stringResource(id = item.name)
-                    )
-                },
-                label = {
-                    Text(text = stringResource(id = item.name))
-                },
-                selected = currentRoute == item.route,
-                onClick = {
-                    navController.navigate(item.route) {
-                        launchSingleTop = true
-                        restoreState = true
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+    val color = MaterialTheme.colorScheme.surface
+
+    Surface(Modifier.background(color)) {
+        NavigationBar(
+            Modifier
+                .background(color)
+                .navigationBarsPadding()
+        ) {
+            items.forEach { item ->
+                NavigationBarItem(
+                    icon = {
+                        Icon(
+                            painterResource(id = item.icon),
+                            contentDescription = stringResource(id = item.name)
+                        )
+                    },
+                    label = {
+                        Text(text = stringResource(id = item.name))
+                    },
+                    selected = currentRoute == item.route,
+                    onClick = {
+                        navController.navigate(item.route) {
+                            launchSingleTop = true
+                            restoreState = true
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
                         }
                     }
-                }
-            )
+                )
+            }
         }
     }
 }

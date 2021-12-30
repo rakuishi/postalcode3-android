@@ -14,10 +14,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -27,8 +23,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowCompat
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.navigationBarsPadding
 import com.rakuishi.postalcode3.R
 import com.rakuishi.postalcode3.database.PostalCode
+import com.rakuishi.postalcode3.presentation.component.StatusBarPaddingTopAppBar
 import com.rakuishi.postalcode3.presentation.theme.AppTheme
 import kotlinx.coroutines.launch
 
@@ -50,16 +50,19 @@ class DetailActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContent {
-            AppTheme {
-                Surface {
-                    DetailScreen(
-                        postalCode,
-                        onNavigationIconClicked = { onBackPressed() },
-                        onShareClicked = { share() },
-                        onCopyClicked = { copy() },
-                        onOpenInGoogleMapsClicked = { openInGoogleMaps() }
-                    )
+            ProvideWindowInsets {
+                AppTheme {
+                    Surface {
+                        DetailScreen(
+                            postalCode,
+                            onNavigationIconClicked = { onBackPressed() },
+                            onShareClicked = { share() },
+                            onCopyClicked = { copy() },
+                            onOpenInGoogleMapsClicked = { openInGoogleMaps() }
+                        )
+                    }
                 }
             }
         }
@@ -117,81 +120,74 @@ private fun DetailScreen(
 
     BottomSheetScaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = postalCode.name)
-                },
-                backgroundColor = MaterialTheme.colorScheme.primaryContainer,
-                navigationIcon = {
-                    IconButton(onClick = { onNavigationIconClicked.invoke() }) {
-                        Icon(
-                            Icons.Filled.ArrowBack,
-                            contentDescription = "",
-                            tint = MaterialTheme.colorScheme.onBackground
-                        )
-                    }
-                }
+            // TODO: BottomSheetScaffold doesn't draw TopAppBar's elevation
+            StatusBarPaddingTopAppBar(
+                text = postalCode.name,
+                onNavigationIconClicked = { onNavigationIconClicked.invoke() }
             )
         },
         scaffoldState = bottomSheetScaffoldState,
         sheetPeekHeight = 0.dp,
         sheetContent = {
-            AppTheme {
-                Surface {
-                    Column(
-                        Modifier
+            Surface(modifier = Modifier.navigationBarsPadding()) {
+                Column(
+                    Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight()
+                ) {
+                    Text(
+                        modifier = Modifier
                             .fillMaxWidth()
-                            .wrapContentHeight()
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    onShareClicked.invoke()
-                                    closeBottomSheet()
-                                }
-                                .padding(16.dp),
-                            text = stringResource(id = R.string.share)
-                        )
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    onCopyClicked.invoke()
-                                    closeBottomSheet()
-                                }
-                                .padding(16.dp),
-                            text = stringResource(id = R.string.copy)
-                        )
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable {
-                                    onOpenInGoogleMapsClicked.invoke()
-                                    closeBottomSheet()
-                                }
-                                .padding(16.dp),
-                            text = stringResource(id = R.string.open_in_google_maps)
-                        )
-                    }
+                            .clickable {
+                                onShareClicked.invoke()
+                                closeBottomSheet()
+                            }
+                            .padding(16.dp),
+                        text = stringResource(id = R.string.share)
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                onCopyClicked.invoke()
+                                closeBottomSheet()
+                            }
+                            .padding(16.dp),
+                        text = stringResource(id = R.string.copy)
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clickable {
+                                onOpenInGoogleMapsClicked.invoke()
+                                closeBottomSheet()
+                            }
+                            .padding(16.dp),
+                        text = stringResource(id = R.string.open_in_google_maps)
+                    )
                 }
             }
+
         },
     ) {
         AppTheme {
-            Surface {
+            Surface(
+                modifier = Modifier.navigationBarsPadding()
+            ) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(all = 16.dp)
                 ) {
-
-                    Card(shape = RoundedCornerShape(16.dp)) {
+                    Surface(
+                        shape = RoundedCornerShape(16.dp),
+                        elevation = 4.dp
+                    ) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .wrapContentHeight()
-                                .background(MaterialTheme.colorScheme.primaryContainer)
+                                .background(MaterialTheme.colorScheme.background)
                                 .clickable { toggleBottomSheet.invoke() }
                                 .padding(all = 16.dp),
                         ) {
@@ -228,6 +224,7 @@ private fun DetailScreen(
                             )
                         }
                     }
+
                 }
             }
         }

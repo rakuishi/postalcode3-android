@@ -70,6 +70,7 @@ dependencies {
     implementation "androidx.compose.material3:material3:1.0.0-alpha02" // Material You
     implementation 'androidx.activity:activity-compose:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
+    implementation "com.google.accompanist:accompanist-insets:0.20.3" // Insets for Jetpack Compose
 
     implementation "androidx.room:room-runtime:$room_version"
     implementation "androidx.room:room-ktx:$room_version"
