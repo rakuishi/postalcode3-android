@@ -21,7 +21,7 @@ data class PostalCode(
             : this(id, code, prefecture, city, street, "", "", "")
 
     override fun toString(): String {
-        return "$id $code $prefecture $city $street"
+        return "$hyphenedCode $prefecture $city $street"
     }
 
     val name: String

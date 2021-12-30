@@ -3,4 +3,7 @@
     <string name="empty_search">郵便番号または地名から検索</string>
     <string name="tab_search">検索</string>
     <string name="tab_favorite">お気に入り</string>
+    <string name="share">共有する</string>
+    <string name="copy">コピーする</string>
+    <string name="open_in_google_maps">Google Maps で開く</string>
 </resources>
