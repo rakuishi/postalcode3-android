@@ -3,6 +3,7 @@ package com.rakuishi.postalcode3.presentation.theme
 import android.os.Build
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.LocalElevationOverlay
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -11,23 +12,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.ViewCompat
-
-private val DarkColorPalette = darkColorScheme(
-    primary = Red,
-)
-
-private val LightColorPalette = lightColorScheme(
-    primary = Red,
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
-)
 
 @Composable
 fun AppTheme(
@@ -38,7 +22,7 @@ fun AppTheme(
         val context = LocalContext.current
         if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
     } else {
-        if (darkTheme) DarkColorPalette else LightColorPalette
+        if (darkTheme) darkColorScheme() else lightColorScheme()
     }
 
     val view = LocalView.current
